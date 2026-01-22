@@ -123,6 +123,16 @@ struct SettingsView: View {
                     ForEach(ModelManager.availableModels) { model in
                         HStack {
                             Text(model.name)
+                            if model.id == "large-v3" {
+                                Text("Recommended")
+                                    .font(.caption2)
+                                    .fontWeight(.medium)
+                                    .padding(.horizontal, 6)
+                                    .padding(.vertical, 2)
+                                    .background(Color.blue.opacity(0.15))
+                                    .foregroundStyle(.blue)
+                                    .clipShape(Capsule())
+                            }
                             Spacer()
                             Text(model.size)
                                 .foregroundStyle(.secondary)

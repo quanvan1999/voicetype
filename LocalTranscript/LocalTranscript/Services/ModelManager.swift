@@ -17,7 +17,7 @@ class ModelManager {
         WhisperModel(id: "base", name: "Base", size: "~75MB", description: "Fast, decent accuracy"),
         WhisperModel(id: "small", name: "Small", size: "~250MB", description: "Balanced speed/accuracy"),
         WhisperModel(id: "medium", name: "Medium", size: "~750MB", description: "Better accuracy, slower"),
-        WhisperModel(id: "large-v3", name: "Large", size: "~1.5GB", description: "Best accuracy, slowest"),
+        WhisperModel(id: "large-v3", name: "Large", size: "~1.5GB", description: "Best for Vietnamese/English. Most accurate."),
     ]
 
     private(set) var whisperKit: WhisperKit?
@@ -31,7 +31,7 @@ class ModelManager {
     // Use UserDefaults directly to avoid @AppStorage conflict with @Observable macro
     @ObservationIgnored
     var selectedModel: String {
-        get { UserDefaults.standard.string(forKey: "selectedModel") ?? "small" }
+        get { UserDefaults.standard.string(forKey: "selectedModel") ?? "large-v3" }
         set { UserDefaults.standard.set(newValue, forKey: "selectedModel") }
     }
 
@@ -62,7 +62,7 @@ class ModelManager {
     }
 
     /// Load WhisperKit model. Downloads automatically if not present.
-    /// Uses the selected model (defaults to "small" - multilingual, auto-detects Vietnamese/English).
+    /// Uses the selected model (defaults to "large-v3" - best accuracy for Vietnamese/English).
     func loadModel() async throws {
         guard whisperKit == nil, !isLoading else { return }
 
